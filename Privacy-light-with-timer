@@ -1,0 +1,151 @@
+#include <Adafruit_NeoPixel.h>
+
+
+long ledCameOn = 0;
+int pixelFormat = NEO_GRB + NEO_KHZ800;
+bool ledState = LOW;
+
+#define PIN     6
+#define NUMPIXELS 15
+#define BRIGHTNESS 200
+
+// Declare our NeoPixel strip object:
+Adafruit_NeoPixel pixels(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+
+  int Press = 0;
+  void setup() {
+  // put your setup code here, to run once:
+
+pixels.begin();
+
+pinMode(4,INPUT_PULLUP); // Button input.
+pinMode(8, OUTPUT); // Button light.
+
+  Serial.begin(9600); // Let's make sure it's registering the button presses with words in the serial monitor!
+
+}
+
+void loop()
+{
+
+
+if (Press == 0); // If it's off, it's off.
+
+{
+
+pixels.fill(pixels.Color(0, 0, 0));
+    pixels.show();   // Set the LED strip to zero colors anywhere.
+}
+
+
+
+
+if (ledState==HIGH && digitalRead(4)== HIGH)  // If the LED strip has been on for at least 5 minutes, turn it off.
+
+  {
+    if((millis()-ledCameOn > 300000)) // This is where you can change the timer length.
+
+    {
+      pixels.fill(pixels.Color(0, 0, 0));
+        pixels.show();
+Serial.print("Time's up!");
+ledState = LOW;
+digitalWrite(8, LOW);
+Press = 0; // Reset the timer.
+
+    }
+  }
+
+
+
+// Press the button down to turn on the light.
+
+    if(digitalRead(4) == LOW && ledState == LOW && Press == 0) // If the button is pressed and the light is off, turn on the LED strip and button light.
+    {
+       ledState=HIGH;
+      Press = 1;
+      delay(100);
+                    Serial.print("Activate!");
+                      ledCameOn = millis();
+
+    }
+  if (ledState == HIGH)
+
+  {pixels.fill(pixels.Color(255, 0, 0)); // Update the LED strip to an ominous red.
+        pixels.show();
+        digitalWrite(8, HIGH);
+        delay(400);
+        }
+
+
+// Unpress to move into the next stage.
+
+  if ((digitalRead(4) == HIGH) && ledState == HIGH & Press == 1)
+{Serial.print("Unpress!");
+delay(500);
+
+Press = 2;}
+
+// Press again to turn it off before the timer runs out.
+  {
+    if(digitalRead(4) == LOW && ledState == HIGH)
+
+    {
+
+
+      Serial.print("Reset!");
+  ledState = LOW;
+  Press = 3;
+//Unpress to start over.
+
+    }
+  }
+
+  if ((digitalRead(4) == HIGH) && Press == 3) // If the timer is stopped before the time limit, make the LEDs blue and blink them three times.
+  {Press = 0;
+
+  Serial.print("Ready");
+  pixels.fill(pixels.Color(0, 0, 255));  // Start the first blink.
+        pixels.show();
+                digitalWrite(8, HIGH);
+
+
+  delay(500);
+
+    pixels.fill(pixels.Color(0, 0, 0)); // End the first blink.
+        pixels.show();
+        digitalWrite(8, LOW);
+
+  delay(500);
+
+   pixels.fill(pixels.Color(0, 0, 255)); // Start the second blink.
+         pixels.show();
+                 digitalWrite(8, HIGH);
+
+  delay(500);
+
+      pixels.fill(pixels.Color(0, 0, 0)); // End the second blink.
+        pixels.show();
+        digitalWrite(8, LOW);
+
+  delay(500);
+
+   pixels.fill(pixels.Color(0, 0, 255)); // Start the third blink.
+         pixels.show();
+                 digitalWrite(8, HIGH);
+
+  delay(500);
+
+      pixels.fill(pixels.Color(0, 0, 0)); // End the third blink.
+        pixels.show();
+        digitalWrite(8, LOW);
+
+  delay(500);
+
+
+
+
+  delay(2000); // A break so an accidental re-push or a wonky button contact doesn't start the process over.
+
+  }
+}

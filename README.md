@@ -4,10 +4,10 @@ A controller for an LED light strip on a five minute timer that you can turn on 
 
 ## Table of contents
 
-- [Functions] (#functions)
-- [What you'll need] (#what you'll need)
-- [Setup] (#setup)
-- [Background] (#Background)
+- [Functions](#functions)
+- [What you'll need](#what you'll need)
+- [Setup](#setup)
+- [Background](#Background)
 
 ## Functions
 

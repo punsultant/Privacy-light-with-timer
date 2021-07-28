@@ -5,7 +5,7 @@ A controller for an LED light strip on a five minute timer that you can turn on 
 ## Table of contents
 
 - [Functions](#functions)
-- [What you will need](#what you will need)
+- [What you'll need](#what)
 - [Setup](#setup)
 - [Background](#Background)
 
@@ -13,7 +13,7 @@ A controller for an LED light strip on a five minute timer that you can turn on 
 
 Push the button once and the LED strip will light up red and the light on the button will turn on. After five minutes, these will turn off. If the button is pressed a second time before the five minutes is up, the strip and the button will flash blue three times and they will both turn off. A two second delay has been set at the end to prevent any errors from overzealous button mashing.
 
-## What you'll need
+## What you will need
 
 - **Arduino Uno.** The Uno is best for this project, but just about any Arduino board will work.  
 - **Adafruit NeoPixel Digital RGB LED strip.** Adafruit has [a wide variety of strips and other devices](https://www.adafruit.com/category/183) that will work. If you would prefer to use a single three pin RGB LED, Arduino has good documentation [here](https://create.arduino.cc/projecthub/muhammad-aqib/arduino-rgb-led-tutorial-fc003e).
